@@ -58,9 +58,6 @@ contract DAOFactory is Ownable {
     mapping(TemplateType => Template) public templates;
     
     // Mapping from DAO ID to DAO information
-    mapping(uint256 => DAOInfo) public daos;
-    
-    // Mapping from DAO core address to DAO ID
     mapping(address => uint256) public daoAddressToId;
     
     // Array of all DAO IDs
