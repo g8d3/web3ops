@@ -37,7 +37,7 @@ contract DAOFactory is Ownable {
         string description;
         address coreImplementation;
         address governanceImplementation;
-        address treasuryImplementation;
+        address payable treasuryImplementation;
         bool active;
     }
     
