@@ -1,33 +1,54 @@
-const { ethers } = require("hardhat");
+const { ethers } = require("ethers");
+const fs = require("fs");
 
 async function main() {
+  // Read contract ABIs and bytecodes
+  const DAOCoreABI = JSON.parse(fs.readFileSync("artifacts/DAOCore.json")).abi;
+  const DAOCoreBytecode = fs.readFileSync("artifacts/DAOCore.json").bytecode;
+
+  const GovernanceABI = JSON.parse(fs.readFileSync("artifacts/Governance.json")).abi;
+  const GovernanceBytecode = fs.readFileSync("artifacts/Governance.json").bytecode;
+
+  const TreasuryABI = JSON.parse(fs.readFileSync("artifacts/Treasury.json")).abi;
+  const TreasuryBytecode = fs.readFileSync("artifacts/Treasury.json").bytecode;
+
+  const ForgeTokenABI = JSON.parse(fs.readFileSync("artifacts/ForgeToken.json")).abi;
+  const ForgeTokenBytecode = fs.readFileSync("artifacts/ForgeToken.json").bytecode;
+
+  const DAOFactoryABI = JSON.parse(fs.readFileSync("artifacts/DAOFactory.json")).abi;
+  const DAOFactoryBytecode = fs.readFileSync("artifacts/DAOFactory.json").bytecode;
+
+  // Set up provider and signer
+  const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545"); // Replace with your provider URL
+  const signer = new ethers.Wallet("0xac0974bec39a17e36ba4a6b4cdb30563e7c3cfbf5f118a056330b71ca4aa246", provider); // Replace with your private key
+
   // Deploy DAOCore Implementation
-  const DAOCore = await ethers.getContractFactory("DAOCore");
-  const daoCore = await DAOCore.deploy();
+  const DAOCoreFactory = new ethers.ContractFactory(DAOCoreABI, DAOCoreBytecode, signer);
+  const daoCore = await DAOCoreFactory.deploy();
   await daoCore.deployed();
   console.log("DAOCore Implementation deployed to:", daoCore.address);
 
   // Deploy Governance Implementation
-  const Governance = await ethers.getContractFactory("Governance");
-  const governance = await Governance.deploy();
+  const GovernanceFactory = new ethers.ContractFactory(GovernanceABI, GovernanceBytecode, signer);
+  const governance = await GovernanceFactory.deploy();
   await governance.deployed();
   console.log("Governance Implementation deployed to:", governance.address);
 
   // Deploy Treasury Implementation
-  const Treasury = await ethers.getContractFactory("Treasury");
-  const treasury = await Treasury.deploy();
+  const TreasuryFactory = new ethers.ContractFactory(TreasuryABI, TreasuryBytecode, signer);
+  const treasury = await TreasuryFactory.deploy();
   await treasury.deployed();
   console.log("Treasury Implementation deployed to:", treasury.address);
 
   // Deploy ForgeToken
-  const ForgeToken = await ethers.getContractFactory("ForgeToken");
-  const forgeToken = await ForgeToken.deploy();
+  const ForgeTokenFactory = new ethers.ContractFactory(ForgeTokenABI, ForgeTokenBytecode, signer);
+  const forgeToken = await ForgeTokenFactory.deploy();
   await forgeToken.deployed();
   console.log("ForgeToken deployed to:", forgeToken.address);
 
   // Deploy DAOFactory
-  const DAOFactory = await ethers.getContractFactory("DAOFactory");
-  const daoFactory = await DAOFactory.deploy();
+  const DAOFactoryFactory = new ethers.ContractFactory(DAOFactoryABI, DAOFactoryBytecode, signer);
+  const daoFactory = await DAOFactoryFactory.deploy();
   await daoFactory.deployed();
   console.log("DAOFactory deployed to:", daoFactory.address);
 
