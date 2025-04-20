@@ -58,9 +58,6 @@ contract DAOFactory is Ownable {
     mapping(TemplateType => Template) public templates;
     
     // Mapping from DAO ID to DAO information
-    mapping(uint256 => DAOInfo) public daos;
-
-    // Mapping from DAO core address to DAO ID
     mapping(address => uint256) public daoAddressToId;
     
     // Array of all DAO IDs
@@ -173,8 +170,7 @@ contract DAOFactory is Ownable {
      * @param initialMembers Array of initial member addresses
      * @param initialMemberRoles Array of initial member roles (must match length of initialMembers)
      * @return daoId The ID of the newly created DAO
-     * @return coreContract The address of the core contract
-     * @return governanceContract The address of the governance contract
+     * @return coreContract The address of the governance contract
      * @return treasuryContract The address of the treasury contract
      */
     function createDAO(
