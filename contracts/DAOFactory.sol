@@ -6,7 +6,7 @@ import "./Governance.sol";
 import "./Treasury.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/counter/Counters.sol";
 
 /**
  * @title DAOFactory
