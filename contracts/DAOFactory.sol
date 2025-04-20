@@ -81,7 +81,7 @@ contract DAOFactory is Ownable {
     /**
      * @dev Constructor that initializes the contract with the contract owner
      */
-    constructor() Ownable(msg.sender) {
+    constructor() Ownable() {
         // Initialize counter at 1 (0 is reserved for invalid/non-existent DAOs)
         _daoIdCounter.increment();
     }
@@ -190,7 +190,7 @@ contract DAOFactory is Ownable {
         uint256 daoId,
         address coreContract,
         address governanceContract,
-        address treasuryContract
+        address payable treasuryContract
     ) {
         Template memory template = templates[templateType];
         require(template.active, "Template is not active");
